@@ -13,7 +13,8 @@ Aplicacion movil desarrollada para el registro y gestion de incidencias de equip
 - Configuracion inicial del proyecto Android.
 - Interfaz grafica basica con pantalla de inicio.
 - Componentes visuales y campos de entrada.
-- Soporte para desplazamiento vertical en orientacion horizontal
+- Soporte para desplazamiento vertical en orientacion horizontal.
+- Manejo de estado basico con 'remember' y 'mutableStateOf' para captura de datos
 
 ## Como ejecutar el proyecto
 1. Clonar este repositorio o descargarlo como zip

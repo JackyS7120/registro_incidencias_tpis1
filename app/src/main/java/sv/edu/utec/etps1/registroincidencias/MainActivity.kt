@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
 fun RegistroIncidenciasApp() {
     var titulo by remember { mutableStateOf("") }
     var descripcion by remember { mutableStateOf("") }
+    var mensaje by remember { mutableStateOf("") }
 
     val scrollState = rememberScrollState()
 
@@ -101,7 +102,13 @@ fun RegistroIncidenciasApp() {
 
                 Spacer(modifier = Modifier.height(24.dp))
 
-                Button(onClick = { /* Se implementará en una unidad posterior */ }) {
+                Button(onClick = {
+                    mensaje = if (titulo.isNotBlank()) {
+                        "Reporte preparado: $titulo"
+                    } else {
+                        "Porfavor ingresa un titulo para la incidencia."
+                    }
+                }) {
                     Text(text = "Crear reporte")
                 }
 
@@ -113,7 +120,8 @@ fun RegistroIncidenciasApp() {
                             text = "Equipos reportados.",
                             style = MaterialTheme.typography.titleMedium
                         )
-                        Text(text = "No se han encontrado registros.")
+                        Spacer(modifier = Modifier.height(4.dp))
+                        Text(text = mensaje)
                     }
                 }
 
