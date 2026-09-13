@@ -46,7 +46,7 @@ class MainActivity : ComponentActivity() {
 fun RegistroIncidenciasApp() {
     var titulo by remember { mutableStateOf("") }
     var descripcion by remember { mutableStateOf("") }
-    var mensaje by remember { mutableStateOf("") }
+    var mensaje by remember { mutableStateOf("No se encontraron registros.") }
 
     val scrollState = rememberScrollState()
 
