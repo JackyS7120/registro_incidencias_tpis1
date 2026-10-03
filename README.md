@@ -14,7 +14,10 @@ Aplicacion movil desarrollada para el registro y gestion de incidencias de equip
 - Interfaz grafica basica con pantalla de inicio.
 - Componentes visuales y campos de entrada.
 - Soporte para desplazamiento vertical en orientacion horizontal.
-- Manejo de estado basico con 'remember' y 'mutableStateOf' para captura de datos
+- Manejo de estado basico con 'remember' y 'mutableStateOf' para captura de datos.
+- Configuracion avanzada del teclado: capitalización automática de oraciones (`Sentences`), salto de foco con acción `Next` y ocultamiento automático con acción `Done`.
+- Interaccion tactil: selector dinámico de nivel de prioridad (*Baja*, *Media*, *Alta*) mediante componentes `Card` con `clickable` y retroalimentación visual inmediata (borde y cambio de color).
+- Generación de reportes dinamicos con retroalimentacion visual en tiempo real.
 
 ## Como ejecutar el proyecto
 1. Clonar este repositorio o descargarlo como zip
