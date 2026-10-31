@@ -23,6 +23,7 @@ Aplicacion movil desarrollada para el registro y gestion de incidencias de equip
     - Control de ciclo de vida seguro mediante `DisposableEffect` para registrar el listener al entrar a la vista y liberarlo obligatoriamente (`unregisterListener`) al abandonarla, evitando fugas de memoria y consumo innecesario de batería.
     - Tarjeta de diagnóstico de hardware en interfaz que interpreta la aceleración total del dispositivo para alertar sobre reposo o posibles impactos/caídas.
     - Manejo preventivo para dispositivos sin sensor compatible (`sensor == null`).
+- Intregracion de Callbacks y estudio del ciclo de vida de la aplicacion.
 ## Como ejecutar el proyecto
 1. Clonar este repositorio o descargarlo como zip
 2. Abrir la carpeta en **Android Studio**

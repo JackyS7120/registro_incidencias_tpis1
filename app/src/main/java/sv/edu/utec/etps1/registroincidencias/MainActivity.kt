@@ -6,6 +6,7 @@ import android.hardware.SensorEvent
 import android.hardware.SensorEventListener
 import android.hardware.SensorManager
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.BorderStroke
@@ -37,13 +38,41 @@ import kotlin.math.sqrt
 // 1. PUNTO DE ENTRADA DE LA APLICACIÓN (Activity)
 // ============================================================================
 class MainActivity : ComponentActivity() {
+    private val tag = "TPIS1_LIFECYCLE"
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d(tag, "onCreate")
         setContent {
             RegistroIncidenciasTheme {
                 RegistroIncidenciasApp()
             }
         }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        Log.d(tag, "onStart")
+    }
+
+    override fun onResume() {
+        super.onResume()
+        Log.d(tag, "onResume")
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d(tag, "onPause")
+    }
+
+    override fun onStop() {
+        super.onStop()
+        Log.d(tag, "onStop")
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        Log.d(tag, "onDestroy")
     }
 }
 
