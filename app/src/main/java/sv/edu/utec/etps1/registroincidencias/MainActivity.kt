@@ -18,6 +18,7 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -86,10 +87,10 @@ fun RegistroIncidenciasApp() {
     // Guardan en memoria el texto ingresado, la opción activa y la respuesta final.
     // Al mutar cualquiera de estas variables, Compose recompondrá solo los nodos necesarios.
     // ------------------------------------------------------------------------
-    var titulo by remember { mutableStateOf("") }
-    var descripcion by remember { mutableStateOf("") }
-    var prioridad by remember { mutableStateOf("Media")}
-    var mensaje by remember { mutableStateOf("No se encontraron registros.") }
+    var titulo by rememberSaveable { mutableStateOf("") }
+    var descripcion by rememberSaveable { mutableStateOf("") }
+    var prioridad by rememberSaveable { mutableStateOf("Media")}
+    var mensaje by rememberSaveable { mutableStateOf("No se encontraron registros.") }
 
     // Controladores de interfaz: desplazamiento, foco de teclado y visibilidad de teclado
     val scrollState = rememberScrollState()
