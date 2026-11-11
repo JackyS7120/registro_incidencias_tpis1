@@ -25,6 +25,7 @@ Aplicacion movil desarrollada para el registro y gestion de incidencias de equip
     - Manejo preventivo para dispositivos sin sensor compatible (`sensor == null`).
 - Integracion de Callbacks y estudio del ciclo de vida de la aplicacion.
 - Uso de `rememberSaveable` para la conservacion de estado.
+- Uso e implementacion de `viewModel` como remplazo de `rememberSaveable` para la conservacion de estado de las varibles principales.
 ## Como ejecutar el proyecto
 1. Clonar este repositorio o descargarlo como zip
 2. Abrir la carpeta en **Android Studio**

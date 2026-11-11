@@ -18,7 +18,6 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusDirection
@@ -32,6 +31,8 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import sv.edu.utec.etps1.registroincidencias.ui.theme.RegistroIncidenciasTheme
 import kotlin.math.sqrt
 
@@ -77,20 +78,48 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+//======================================================================
+//2. INTEGRACION DE VIEWMODEL (Remplazo de rememberSaveable)
+//======================================================================
+class IncidenciaViewModel : ViewModel(){
+    var titulo by mutableStateOf("")
+        private set
+    var descripcion by mutableStateOf("")
+        private set
+    var prioridad by mutableStateOf("")
+        private set
+    var mensaje by mutableStateOf("")
+        private set
+
+    fun updTitulo(valor: String){
+        titulo = valor
+    }
+
+    fun updDescripcion(valor: String){
+        descripcion = valor
+    }
+
+    fun updPrioridad(valor: String){
+        prioridad = valor
+    }
+
+    fun updMensaje(newMensaje: String){
+        mensaje = newMensaje
+    }
+}
+
 // ============================================================================
-// 2. COMPONENTE PRINCIPAL DE LA PANTALLA
+// 3. COMPONENTE PRINCIPAL DE LA PANTALLA
 // ============================================================================
 @Composable
-fun RegistroIncidenciasApp() {
+fun RegistroIncidenciasApp(viewModel: IncidenciaViewModel = viewModel()) {
     // ------------------------------------------------------------------------
-    // SECCIÓN A: ESTADOS REACTIVOS DEL FORMULARIO
-    // Guardan en memoria el texto ingresado, la opción activa y la respuesta final.
-    // Al mutar cualquiera de estas variables, Compose recompondrá solo los nodos necesarios.
+    // SECCIÓN A: ESTADOS REACTIVOS DEL FORMULARIO (Actualmente implementado en ViewModel)
     // ------------------------------------------------------------------------
-    var titulo by rememberSaveable { mutableStateOf("") }
-    var descripcion by rememberSaveable { mutableStateOf("") }
-    var prioridad by rememberSaveable { mutableStateOf("Media")}
-    var mensaje by rememberSaveable { mutableStateOf("No se encontraron registros.") }
+    //var titulo by rememberSaveable { mutableStateOf("") }
+    //var descripcion by rememberSaveable { mutableStateOf("") }
+    //var prioridad by rememberSaveable { mutableStateOf("Media")}
+    //var mensaje by rememberSaveable { mutableStateOf("No se encontraron registros.") }
 
     // Controladores de interfaz: desplazamiento, foco de teclado y visibilidad de teclado
     val scrollState = rememberScrollState()
@@ -249,8 +278,8 @@ fun RegistroIncidenciasApp() {
                 // ------------------------------------------------------------
                 // Campo Título: Mayúscula automática y salto con tecla Next
                 OutlinedTextField(
-                    value = titulo,
-                    onValueChange = { titulo = it },
+                    value = viewModel.titulo,
+                    onValueChange = { viewModel.updTitulo(it) },
                     label = { Text("Titulo") },
                     modifier = Modifier.fillMaxWidth(),
                     singleLine = true,
@@ -267,8 +296,8 @@ fun RegistroIncidenciasApp() {
 
                 // Campo Descripción: Mayúscula automática y cierre con tecla Done
                 OutlinedTextField(
-                    value = descripcion,
-                    onValueChange = { descripcion = it },
+                    value = viewModel.descripcion,
+                    onValueChange = { viewModel.updDescripcion(it) },
                     label = { Text("Descripcion") },
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 3,
@@ -299,11 +328,11 @@ fun RegistroIncidenciasApp() {
                     horizontalArrangement = Arrangement.spacedBy(8.dp)
                 ) {
                     prioridades.forEach { item ->
-                        val isSelected = prioridad == item
+                        val isSelected = viewModel.prioridad == item
                         Card(
                             modifier = Modifier
                                 .weight(1f)
-                                .clickable { prioridad = item }, // Interacción táctil
+                                .clickable { viewModel.updPrioridad(item) }, // Interacción táctil
                             colors = CardDefaults.cardColors(
                                 containerColor = if (isSelected) {
                                     MaterialTheme.colorScheme.primaryContainer
@@ -343,11 +372,12 @@ fun RegistroIncidenciasApp() {
                 Button(
                     onClick = {
                         keyboardController?.hide()
-                        mensaje = if (titulo.isNotBlank() && descripcion.isNotBlank()) {
-                            "Reporte preparado: $titulo [Prioridad $prioridad]"
+                        val newMensaje = if (viewModel.titulo.isNotBlank() && viewModel.descripcion.isNotBlank()) {
+                            "Reporte preparado: ${viewModel.titulo} [Prioridad ${viewModel.prioridad}]"
                         } else {
                             "Por favor ingresa un titulo y una descripcion para la incidencia."
                         }
+                        viewModel.updMensaje(newMensaje)
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
@@ -364,7 +394,7 @@ fun RegistroIncidenciasApp() {
                             style = MaterialTheme.typography.titleMedium
                         )
                         Spacer(modifier = Modifier.height(4.dp))
-                        Text(text = mensaje)
+                        Text(text = viewModel.mensaje)
                     }
                 }
 
@@ -373,7 +403,7 @@ fun RegistroIncidenciasApp() {
             }
             // Pie de página con versión del prototipo
             Text(
-                text = "Prototipo inicial - Sengundo Avance con Sensor.",
+                text = "Prototipo inicial - Implementacion de ViewModel",
                 fontSize = 12.sp,
                 textAlign = TextAlign.Center
             )
